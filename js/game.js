@@ -1,5 +1,5 @@
 let config = {
-  type: Phaser.WEBGL,
+  type: Phaser.AUTO,
   width: 1024,
   height: 768,
   backgroundColor: "black",
@@ -9,7 +9,7 @@ let config = {
       gravity: { x: 0, y: 0 }
     }
   },
-  scene: [],
+  scene: [SceneMainMenu, SceneMain, SceneGameOver],
   pixelArt: true,
   roundPixels: true
 };
