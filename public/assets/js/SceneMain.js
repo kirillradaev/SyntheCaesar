@@ -18,6 +18,7 @@ class SceneMain extends Phaser.Scene {
     //   repeat: -1
     // });
     // this.platform = this.physics.add.static("platform");
+
     let player = this.physics.add.image(
       config.width * 0.5,
       config.height * 0.9,
@@ -25,6 +26,7 @@ class SceneMain extends Phaser.Scene {
     );
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
+
     this.background = this.add.tileSprite(
       0,
       0,
@@ -44,12 +46,14 @@ class SceneMain extends Phaser.Scene {
       fill: "#DC143C"
     });
     this.scoreText;
+
     this.player = new Player(
       this,
       this.game.config.width * 0.5,
       this.game.config.height * 0.98,
       "sprPlayer"
     );
+
     console.log(this.player);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
