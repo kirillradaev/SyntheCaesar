@@ -21,7 +21,6 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
-    
     this.background = this.add.tileSprite(
       0,
       0,
@@ -365,13 +364,6 @@ class SceneMain extends Phaser.Scene {
     brick.x = 900;
   }
 
-<<<<<<< HEAD
-  increaseScore(item) {
-    //socket emit message of type 'update score'
-    item += 10;
-  }
-}
-=======
   movePlayerManager() {
     if (this.cursorKeys.left.isDown) {
       player.setVelocityX(-gameSettings.playerSpeed);
@@ -459,4 +451,3 @@ class SceneMain extends Phaser.Scene {
   //   player.anims.play("stay");
   // }
 }
->>>>>>> 3ee236b9a83c5645a8ea38504b06a68eb5773333
