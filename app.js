@@ -12,8 +12,7 @@ const uri = process.env.MONGO_CONNECTION_URL;
 
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 mongoose.connection.on('error', (error) => {
-    console.log("ON connection error");
-    console.log(error);
+    console.log("ON connection error", error);
     process.exit(1);
 });
 mongoose.connection.on('connected', function () {
@@ -28,6 +27,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 require('./auth/auth.js');
+
+app.get('/game.html', passport.authenticate('jwt', { session: false }), function (req, res) {
+    res.sendFile(__dirname + '/public/game.html');
+})
 
 app.use(express.static(__dirname + '/public'));
  
@@ -44,8 +47,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log("error status is: ");
-    console.log(err);
     res.status(err.status || 500);
     res.json({ error : err });
 });
