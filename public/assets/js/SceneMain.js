@@ -13,6 +13,7 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
+    
     this.background = this.add.tileSprite(
       0,
       0,
@@ -169,6 +170,7 @@ class SceneMain extends Phaser.Scene {
   }
 
   increaseScore(item) {
+    //socket emit message of type 'update score'
     item += 10;
   }
 }

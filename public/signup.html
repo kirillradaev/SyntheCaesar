@@ -15,7 +15,7 @@
   <form class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
     <label for="username" class="sr-only">username</label>
-    <input type="username" id="username" class="form-control" placeholder="username address" required autofocus>
+    <input type="username" id="username" class="form-control" placeholder="username" required autofocus>
     <label for="password" class="sr-only">Password</label>
     <input type="password" id="password" class="form-control" placeholder="Password" required>
     <a class="btn btn-lg btn-primary btn-block" onClick="signUp()">Sign up</a>
@@ -24,9 +24,8 @@
   <script>
     function signUp() {
       var data = {
-        username: document.forms[0].elements[0].value,
-        password: document.forms[0].elements[1].value,
-        name: document.forms[0].elements[2].value
+        username: document.forms[0].elements[1].value,
+        password: document.forms[0].elements[2].value
       };
       $.ajax({
         type: 'POST',
