@@ -1,3 +1,10 @@
+let gameSettings = { playerSpeed: 250 };
+let player;
+let music;
+let intro;
+let score = 0;
+const bpm = 105;
+
 let config = {
   type: Phaser.AUTO,
   width: 1024,
@@ -6,7 +13,7 @@ let config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: 0, y: 0 }
+      gravity: { x: 0, y: 300 }
     }
   },
   scene: [SceneMainMenu, SceneMain, SceneGameOver],
@@ -14,4 +21,4 @@ let config = {
   roundPixels: true
 };
 
-var game = new Phaser.Game(config);
+var game = new Phaser.Game(config)
