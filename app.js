@@ -26,7 +26,7 @@ const io = require('socket.io').listen(server);
 
 const players = {};
 
-const scores = 0;
+let score = 0;
 
 io.on('connection', function (socket) {
     console.log('a user connected: ', socket.id);
@@ -38,13 +38,13 @@ io.on('connection', function (socket) {
     socket.emit('currentPlayers', players);
     socket.broadcast.emit('newPlayer', players[socket.id]);
     //on update score
-    socket.emit('scoreUpdate', scores);
+    socket.emit('scoreUpdate', score);
     socket.broadcast.emit('newPlayer', players[socket.id]);
 
     socket.on('score', function () {
         //score logic here
 
-        io.emit('scoreUpdate', scores);
+        io.emit('scoreUpdate', score);
     })
     // socket.broadcast.emit('updare', {player: socket.id, score: score from messagte});
     //forward the score to other  users
