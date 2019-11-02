@@ -13,7 +13,7 @@ let config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: 0, y: 300 }
+      gravity: { x: 0, y: 0 }
     }
   },
   scene: [SceneMainMenu, SceneMain, SceneGameOver],
@@ -21,4 +21,4 @@ let config = {
   roundPixels: true
 };
 
-var game = new Phaser.Game(config)
+let game = new Phaser.Game(config);
