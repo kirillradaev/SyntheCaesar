@@ -3,7 +3,7 @@ let player;
 let music;
 let intro;
 let score = 0;
-const bpm = 105;
+const bpm = 124;
 
 let config = {
   type: Phaser.AUTO,
@@ -13,7 +13,7 @@ let config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: 0, y: 300 }
+      gravity: { x: 0, y: 0 }
     }
   },
   scene: [SceneMainMenu, SceneMain, SceneGameOver],

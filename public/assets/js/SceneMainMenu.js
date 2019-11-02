@@ -20,7 +20,7 @@ class SceneMainMenu extends Phaser.Scene {
     );
     this.load.audio("sndBtnOver", "assets/content/sndBtnOver.wav");
     this.load.audio("sndBtnDown", "assets/content/sndBtnDown.wav");
-    this.load.audio("mainMenuTheme", "assets/content/home.mp3");
+    // this.load.audio("mainMenuTheme", "assets/content/home.mp3");
     this.load.audio("gameMusic", "assets/content/CQC.mp3");
   }
 
