@@ -21,6 +21,41 @@ mongoose.connection.on('connected', function () {
 
 const app = express();
 
+const server = require('http').Server(app);
+const io = require('socket.io').listen(server);
+
+const players = {};
+
+const scores = 0;
+
+io.on('connection', function (socket) {
+    console.log('a user connected: ', socket.id);
+
+    players[socket.id] = {
+        playerId: socket.id
+    };
+
+    socket.emit('currentPlayers', players);
+    socket.broadcast.emit('newPlayer', players[socket.id]);
+    //on update score
+    socket.emit('scoreUpdate', scores);
+    socket.broadcast.emit('newPlayer', players[socket.id]);
+
+    socket.on('score', function () {
+        //score logic here
+
+        io.emit('scoreUpdate', scores);
+    })
+    // socket.broadcast.emit('updare', {player: socket.id, score: score from messagte});
+    //forward the score to other  users
+    socket.on('disconnect', function () {
+        console.log('user disconnected: ', socket.id);
+        delete players[socket.id];
+        io.emit('disconnect', socket.id);
+    });
+
+})
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -51,6 +86,6 @@ app.use((err, req, res, next) => {
     res.json({ error : err });
 });
 
-app.listen(process.env.PORT || 3000, () => {
+server.listen(process.env.PORT || 3000, '0.0.0.0', () => {
     console.log(`Server started on port ${process.env.PORT || 3000}`);
 });

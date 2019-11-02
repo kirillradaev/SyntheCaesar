@@ -21,6 +21,8 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
+    this.socket = io()
+    
     this.background = this.add.tileSprite(
       0,
       0,
@@ -363,7 +365,7 @@ class SceneMain extends Phaser.Scene {
     brick.y = 0;
     brick.x = 900;
   }
-
+  
   movePlayerManager() {
     if (this.cursorKeys.left.isDown) {
       player.setVelocityX(-gameSettings.playerSpeed);
