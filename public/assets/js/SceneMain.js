@@ -4,7 +4,7 @@ class SceneMain extends Phaser.Scene {
   }
 
   init(data) {
-    this.socket = data.socket
+    this.socket = data.socket;
   }
 
   preload() {
@@ -409,6 +409,17 @@ class SceneMain extends Phaser.Scene {
         playerLaser.destroy();
       }
     });
+
+    this.physics.add.overlap(this.player, this.enemies, function(
+      player,
+      enemy
+    ) {
+      if (!player.getData("isDead") && !enemy.getData("isDead")) {
+        player.explode(false);
+        player.onDestroy();
+        enemy.explode(true);
+      }
+    });
   }
 
   update() {
@@ -581,7 +592,7 @@ class SceneMain extends Phaser.Scene {
     if (this.keyA.isDown) {
       note.disableBody(true, true);
 
-      this.updateScore()
+      this.updateScore();
     }
   }
 
@@ -589,7 +600,7 @@ class SceneMain extends Phaser.Scene {
     if (this.keyS.isDown) {
       note.disableBody(true, true);
 
-      this.updateScore()
+      this.updateScore();
     }
   }
 
@@ -597,16 +608,16 @@ class SceneMain extends Phaser.Scene {
     if (this.keyD.isDown) {
       note.disableBody(true, true);
 
-      this.updateScore()
+      this.updateScore();
     }
   }
 
   updateScore() {
-    this.socket.emit('scoreUpdate', score += 10)
-    this.scoreText.setText("Score: " + score)
-    this.socket.on('playerScore', (theirScore) => {
-      this.otherScoreText.setText("Their Score: " + theirScore)
-    })
+    this.socket.emit("scoreUpdate", (score += 10));
+    this.scoreText.setText("Score: " + score);
+    this.socket.on("playerScore", theirScore => {
+      this.otherScoreText.setText("Their Score: " + theirScore);
+    });
   }
 
   setRandomNote() {

@@ -2,6 +2,9 @@ class SceneGameOver extends Phaser.Scene {
   constructor() {
     super({ key: "SceneGameOver" });
   }
+  preload() {
+    this.load.image("mainMenuBg", "assets/content/mainMenuBg.png");
+  }
   create() {
     this.title = this.add.text(this.game.config.width * 0.5, 128, "GAME OVER", {
       fontFamily: "monospace",
@@ -16,6 +19,14 @@ class SceneGameOver extends Phaser.Scene {
       btnOver: this.sound.add("sndBtnOver"),
       btnDown: this.sound.add("sndBtnDown")
     };
+
+    this.background = this.add.tileSprite(
+      512,
+      384,
+      config.width,
+      config.height,
+      "mainMenuBg"
+    );
 
     this.btnRestart = this.add.sprite(
       this.game.config.width * 0.5,
@@ -56,18 +67,18 @@ class SceneGameOver extends Phaser.Scene {
       this
     );
 
-    this.backgrounds = [];
-    for (let i = 0; i < 5; i++) {
-      let keys = ["sprBg0", "sprBg1"];
-      let key = keys[Phaser.Math.Between(0, keys.length - 1)];
-      let bg = new ScrollingBackground(this, key, i * 10);
-      this.backgrounds.push(bg);
-    }
+    // this.backgrounds = [];
+    // for (let i = 0; i < 5; i++) {
+    //   let keys = ["sprBg0", "sprBg1"];
+    //   let key = keys[Phaser.Math.Between(0, keys.length - 1)];
+    //   let bg = new ScrollingBackground(this, key, i * 10);
+    //   this.backgrounds.push(bg);
+    // }
   }
 
-  update() {
-    for (let i = 0; i < this.backgrounds.length; i++) {
-      this.backgrounds[i].update();
-    }
-  }
+  // update() {
+  //   for (let i = 0; i < this.backgrounds.length; i++) {
+  //     this.backgrounds[i].update();
+  //   }
+  // }
 }
