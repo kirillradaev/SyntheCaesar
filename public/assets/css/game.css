@@ -1,0 +1,28 @@
+body {
+  background-color: #5cdb95;
+  font-family: "Righteous", cursive;
+  font-size: 36px;
+}
+
+body .navbar {
+  background-color: #05386b;
+}
+
+body .btn-success {
+  background-color: #379683;
+}
+
+body .btn-danger {
+  background-color: #379683;
+}
+
+body .navbar-brand {
+  font-size: 34px;
+}
+
+canvas {
+  display: block;
+  width: 1024px;
+  height: 768px;
+  margin: auto;
+}
