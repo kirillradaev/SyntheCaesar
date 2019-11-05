@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>SIGN UP PAGE</title>
+    <title>LOGIN PAGE</title>
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
@@ -21,7 +21,8 @@
     <link href="assets/css/registration.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
-  <body class="text-center">
+
+  <body>
     <nav class="navbar navbar-expand-md">
       <a href="index.html" class="navbar-brand">RHYTHM GAME</a>
       <button
@@ -53,48 +54,67 @@
         </ul>
       </div>
     </nav>
-    <form class="form-signin">
-      <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
-      <label for="username" class="sr-only">username</label>
-      <input
-        type="username"
-        id="username"
-        class="form-control"
-        placeholder="username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        required
-      />
-      <a class="btn btn-lg btn-primary btn-block" onClick="signUp()">Sign up</a>
-      <a href="/index.html">Already have an account? Login here.</a>
-    </form>
+
+    <section class="text-center">
+      <form class="form-signin needs-validation" novalidate>
+        <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+        <label for="username" class="sr-only">username</label>
+        <input
+          type="username"
+          id="username"
+          class="form-control"
+          placeholder="username address"
+          required
+          autofocus
+        />
+        <div class="invalid-feedback">Please enter a valid username</div>
+        <label for="password" class="sr-only">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+        <div class="invalid-feedback">Please enter a valid username</div>
+        <a
+          id="sign-in"
+          class="btn btn-lg btn-primary btn-block"
+          onClick="signIn()"
+          >Sign in</a
+        >
+        <a href="/signup.html">Don't have an account? Sign up here.</a>
+      </form>
+    </section>
     <script>
-      function signUp() {
+      function signIn() {
         var data = {
-          username: document.forms[0].elements[1].value,
-          password: document.forms[0].elements[2].value
+          username: $("#username").val(),
+          password: $("#password").val()
         };
+        console.log("DATA: ", data.username);
         $.ajax({
           type: "POST",
-          url: "/signup",
+          url: "/login",
           data,
           success: function(data) {
-            window.alert("user created successfully");
-            window.location.replace("/index.html");
+            window.location.replace("/game.html");
           },
           error: function(xhr) {
             window.alert(JSON.stringify(xhr));
-            window.location.replace("/signup.html");
+            window.location.replace("/index.html");
           }
         });
       }
+    </script>
+    <script>
+      let form = document.querySelector("#sing-in", function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add("was-validated");
+      });
     </script>
   </body>
 </html>
