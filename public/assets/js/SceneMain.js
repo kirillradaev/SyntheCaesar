@@ -17,6 +17,8 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 60,
       frameHeight: 50
     });
+    this.load.image("sprEnemy1", "assets/content/sprEnemy1.png");
+
     this.load.image("sprLaserEnemy0", "assets/content/sprLaserEnemy0.png");
     // this.load.image("brickYellow", "assets/content/brickYellow.png");
     // this.load.image("brickGreen", "assets/content/brickGreen.png");
@@ -76,7 +78,7 @@ class SceneMain extends Phaser.Scene {
     this.anims.create({
       key: "sun",
       frames: this.anims.generateFrameNumbers("sun"),
-      frameRate: 6,
+      frameRate: 5,
       repeat: -1
     });
 
@@ -139,7 +141,7 @@ class SceneMain extends Phaser.Scene {
     this.enemyLasers = this.add.group();
 
     this.time.addEvent({
-      delay: 5000,
+      delay: 3000,
       callback: function() {
         let enemy = null;
         enemy = new GunShip(
@@ -147,6 +149,26 @@ class SceneMain extends Phaser.Scene {
           Phaser.Math.Between(700, 1000),
           0,
           "sprEnemy0"
+        );
+
+        if (enemy !== null) {
+          enemy.setScale(Phaser.Math.Between(10, 20) * 0.1);
+          this.enemies.add(enemy);
+        }
+      },
+      callbackScope: this,
+      loop: true
+    });
+
+    this.time.addEvent({
+      delay: 3000,
+      callback: function() {
+        let enemy = null;
+        enemy = new ChaserShip(
+          this,
+          Phaser.Math.Between(700, 1000),
+          0,
+          "sprEnemy1"
         );
 
         if (enemy !== null) {
@@ -217,7 +239,7 @@ class SceneMain extends Phaser.Scene {
             let y = 0;
 
             let note = this.notes.create(x, y, "note");
-            note.setVelocityY(400);
+            note.setVelocityY(600);
 
             note;
           }
@@ -227,7 +249,7 @@ class SceneMain extends Phaser.Scene {
             let y = 0;
 
             let note = this.notes.create(x, y, "note2");
-            note.setVelocityY(400);
+            note.setVelocityY(600);
 
             note;
           }
@@ -237,7 +259,7 @@ class SceneMain extends Phaser.Scene {
             let y = 0;
 
             let note = this.notes.create(x, y, "note3");
-            note.setVelocityY(400);
+            note.setVelocityY(600);
 
             note;
           }
@@ -251,8 +273,8 @@ class SceneMain extends Phaser.Scene {
 
             let note = this.notes.create(x, y, "note");
             let note2 = this.notes.create(x2, y2, "note3");
-            note.setVelocityY(400);
-            note2.setVelocityY(400);
+            note.setVelocityY(600);
+            note2.setVelocityY(600);
 
             [note, note2];
           }
@@ -266,8 +288,8 @@ class SceneMain extends Phaser.Scene {
 
             let note = this.notes.create(x, y, "note");
             let note2 = this.notes.create(x2, y2, "note2");
-            note.setVelocityY(400);
-            note2.setVelocityY(400);
+            note.setVelocityY(600);
+            note2.setVelocityY(600);
 
             [note, note2];
           }
@@ -281,8 +303,8 @@ class SceneMain extends Phaser.Scene {
 
             let note = this.notes.create(x, y, "note2");
             let note2 = this.notes.create(x2, y2, "note3");
-            note.setVelocityY(400);
-            note2.setVelocityY(400);
+            note.setVelocityY(600);
+            note2.setVelocityY(600);
 
             [note, note2];
           }
@@ -300,9 +322,9 @@ class SceneMain extends Phaser.Scene {
             let note = this.notes.create(x, y, "note");
             let note2 = this.notes.create(x2, y2, "note2");
             let note3 = this.notes.create(x3, y3, "note3");
-            note.setVelocityY(400);
-            note2.setVelocityY(400);
-            note3.setVelocityY(400);
+            note.setVelocityY(600);
+            note2.setVelocityY(600);
+            note3.setVelocityY(600);
 
             [note, note2, note3];
           }
@@ -476,41 +498,6 @@ class SceneMain extends Phaser.Scene {
     // });
 
     this.background.tilePositionY -= 1.5;
-
-    for (let i = 0; i < this.enemies.getChildren().length; i++) {
-      let enemy = this.enemies.getChildren()[i];
-
-      enemy.update();
-
-      if (
-        enemy.x < -enemy.displayWidth ||
-        enemy.x > this.game.config.width + enemy.displayWidth ||
-        enemy.y < -enemy.displayHeight * 4 ||
-        enemy.y > this.game.config.height + enemy.displayHeight
-      ) {
-        if (enemy) {
-          if (enemy.onDestroy !== undefined) {
-            enemy.onDestroy();
-          }
-          enemy.destroy();
-        }
-      }
-    }
-
-    for (let i = 0; i < this.playerLasers.getChildren().length; i++) {
-      let laser = this.playerLasers.getChildren()[i];
-      laser.update();
-      if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
-      ) {
-        if (laser) {
-          laser.destroy();
-        }
-      }
-    }
   }
 
   //Sets brick's speed
