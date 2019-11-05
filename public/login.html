@@ -76,8 +76,8 @@
           window.alert('in SignIn function')
           e.stopImmediatePropagation()
           var data = {
-            username: document.forms[0].elements[0].value,
-            password: document.forms[0].elements[1].value
+            username: $('#username').val(),
+            password: $('#password').val()
           };
           $.ajax({
             type: 'POST',
