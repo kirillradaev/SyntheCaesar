@@ -56,65 +56,42 @@
     </nav>
 
     <section class="text-center">
-      <form class="form-signin needs-validation" novalidate>
+      <form class="form-signin" onSubmit="signIn(event)">
         <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
         <label for="username" class="sr-only">username</label>
-        <input
-          type="username"
-          id="username"
-          class="form-control"
-          placeholder="username address"
-          required
-          autofocus
-        />
-        <div class="invalid-feedback">Please enter a valid username</div>
+        <input type="username" id="username" class="form-control" placeholder="username address" required autofocus>
         <label for="password" class="sr-only">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          placeholder="Password"
-          required
-        />
-        <div class="invalid-feedback">Please enter a valid username</div>
-        <a
-          id="sign-in"
-          class="btn btn-lg btn-primary btn-block"
-          onClick="signIn()"
-          >Sign in</a
-        >
-        <a href="/signup.html">Don't have an account? Sign up here.</a>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+        <button id="button" class="btn btn-lg btn-primary btn-block" onSubmit="signIn(event)">Sign in</button>
       </form>
-    </section>
-    <script>
-      function signIn() {
-        var data = {
-          username: $("#username").val(),
-          password: $("#password").val()
-        };
-        console.log("DATA: ", data.username);
-        $.ajax({
-          type: "POST",
-          url: "/login",
-          data,
-          success: function(data) {
-            window.location.replace("/game.html");
-          },
-          error: function(xhr) {
-            window.alert(JSON.stringify(xhr));
-            window.location.replace("/index.html");
-          }
+      <a href="/signup.html">Don't have an account? Sign up here.</a>
+      <script>
+        document.getElementById("button").addEventListener("submit", function(event) {
+          event.preventDefault()
+          console.log('prevented the default')
         });
-      }
-    </script>
-    <script>
-      let form = document.querySelector("#sing-in", function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
+    
+        function signIn(e) {
+          e.preventDefault()
+          window.alert('in SignIn function')
+          e.stopImmediatePropagation()
+          var data = {
+            username: document.forms[0].elements[0].value,
+            password: document.forms[0].elements[1].value
+          };
+          $.ajax({
+            type: 'POST',
+            url: '/login',
+            data,
+            success: function (data) {
+              window.location.replace('/game.html');
+            },
+            error: function (xhr) {
+              window.alert(JSON.stringify(xhr));
+              window.location.replace('/index.html');
+            }
+          });
         }
-        form.classList.add("was-validated");
-      });
-    </script>
+      </script>
   </body>
 </html>
