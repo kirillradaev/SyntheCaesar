@@ -3,6 +3,10 @@ class SceneMain extends Phaser.Scene {
     super({ key: "SceneMain" });
   }
 
+  init(data) {
+    this.socket = data.socket
+  }
+
   preload() {
     this.load.spritesheet("sprExplosion", "assets/content/sprExplosion.png", {
       frameWidth: 32,
@@ -42,8 +46,6 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
-    this.socket = io();
-
     this.background = this.add.tileSprite(
       0,
       0,
@@ -120,6 +122,14 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.scoreText;
+
+    this.otherScoreText = this.add.text(16, 45, " THEIR SCORE: " + theirScore, {
+      fontFamily: '"Roboto Condensed"',
+      fontSize: "42px",
+      fill: "#DC143C"
+    });
+
+    this.otherScoreText;
 
     //Player creation
     // this.players = this.physics.add.group();
@@ -571,8 +581,7 @@ class SceneMain extends Phaser.Scene {
     if (this.keyA.isDown) {
       note.disableBody(true, true);
 
-      score += 10;
-      this.scoreText.setText("Score: " + score);
+      this.updateScore()
     }
   }
 
@@ -580,8 +589,7 @@ class SceneMain extends Phaser.Scene {
     if (this.keyS.isDown) {
       note.disableBody(true, true);
 
-      score += 10;
-      this.scoreText.setText("Score: " + score);
+      this.updateScore()
     }
   }
 
@@ -589,9 +597,16 @@ class SceneMain extends Phaser.Scene {
     if (this.keyD.isDown) {
       note.disableBody(true, true);
 
-      score += 10;
-      this.scoreText.setText("Score: " + score);
+      this.updateScore()
     }
+  }
+
+  updateScore() {
+    this.socket.emit('scoreUpdate', score += 10)
+    this.scoreText.setText("Score: " + score)
+    this.socket.on('playerScore', (theirScore) => {
+      this.otherScoreText.setText("Their Score: " + theirScore)
+    })
   }
 
   setRandomNote() {

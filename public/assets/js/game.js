@@ -3,7 +3,10 @@ let player;
 let music;
 let intro;
 let score = 0;
+let theirScore = 0;
 const bpm = 105;
+let text;
+let timedEvent;
 
 let config = {
   type: Phaser.AUTO,

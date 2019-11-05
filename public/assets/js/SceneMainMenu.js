@@ -25,9 +25,11 @@ class SceneMainMenu extends Phaser.Scene {
   }
 
   create() {
-    //INTRO MUSIC
-    // intro = this.sound.add("mainMenuTheme");
-    // intro.play();
+    this.socket = io();
+    
+    this.socket.on('connection', function (socket) {
+      this.socket.broadcast.emit('newPlayer',  socket);
+    })
 
     this.background = this.add.tileSprite(
       512,
@@ -36,6 +38,8 @@ class SceneMainMenu extends Phaser.Scene {
       config.height,
       "mainMenuBg"
     );
+    
+    this.getTitle();
 
     this.sfx = {
       btnOver: this.sound.add("sndBtnOver"),
@@ -71,37 +75,55 @@ class SceneMainMenu extends Phaser.Scene {
       },
       this
     );
-
-    this.btnPlay.on(
-      "pointerup",
-      function() {
-        this.btnPlay.setTexture("sprBtnPlay");
-        this.scene.start("SceneMain");
-      },
-      this
-    );
-
-    this.title = this.add.text(
-      this.game.config.width * 0.5,
-      128,
-      "RHYTHM GAME",
-      {
-        fontFamily: "monospace",
-        fontSize: 48,
-        fontStyle: "bold",
-        color: "#ffffff",
-        align: "center"
-      }
-    );
-    this.title.setOrigin(0.5);
   }
 
   update() {
-    // this.intro.play();
-    // this.startMusic();
+
   }
 
-  // startMusic() {
-  //   intro.resume();
-  // }
+  getTitle() {
+    this.socket.on('waiting', data => {
+      text = data.msg
+
+      this.title = this.add.text(
+        this.game.config.width * 0.5,
+        128,
+        text,
+        {
+          fontFamily: "monospace",
+          fontSize: 48,
+          fontStyle: "bold",
+          color: "#ffffff",
+          align: "center"
+        }
+      )
+      this.title.setOrigin(0.5)
+    })
+
+    this.socket.on('ready', data => {
+      text = data.msg;
+      if(this.title) {
+        this.title.destroy();
+      }
+      this.title = this.add.text(
+        this.game.config.width * 0.5,
+        128,
+        text,
+        {
+          fontFamily: "monospace",
+          fontSize: 48,
+          fontStyle: "bold",
+          color: "#ffffff",
+          align: "center"
+        }
+      )
+      this.title.setOrigin(0.5)
+
+      timedEvent = this.time.delayedCall(6000, this.nextScene, [], this);
+    })
+  }
+
+  nextScene() {
+    this.scene.start("SceneMain", { socket: this.socket });
+  }
 }
