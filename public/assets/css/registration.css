@@ -1,21 +1,97 @@
 body {
-  background-color: #5cdb95;
+  background-color: #e05e1d;
+  font-family: "VT323", monospace;
+  font-size: 36px;
 }
 
-body .navbar {
-  background-color: #05386b;
+.form-control {
+  border-radius: 0;
 }
 
-body .btn-success {
-  background-color: #379683;
-}
-
-body .btn-danger {
-  background-color: #379683;
+.btn-lg {
+  border-radius: 0;
 }
 
 body .navbar-brand {
   font-size: 34px;
+  color: #e05e1d;
+}
+
+.nav-link {
+  color: #e05e1d;
+}
+
+.navbar-brand:hover {
+  color: #e04719;
+}
+
+.nav-link:hover {
+  color: #e04719;
+}
+
+body .navbar-toggler {
+  background-color: white;
+}
+
+body .navbar {
+  background-color: #09104f;
+}
+
+body .btn-success {
+  background-color: #e05e1d;
+}
+
+body .btn-danger {
+  background-color: #e05e1d;
+}
+
+.btn-danger:hover {
+  background-color: #e04719;
+}
+
+.btn-success:hover {
+  background-color: #e04719;
+}
+
+body .my-container {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+body .my-row {
+  height: 410px;
+  width: 100vw;
+}
+
+.btn-block {
+  background-color: #09104f;
+  color: white;
+}
+
+body .navbar-brand {
+  font-size: 34px;
+}
+
+.btn-logOut {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e05e1d;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
+}
+
+.btn-logOut:hover {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e04719;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
 }
 
 .form-signin {
@@ -23,27 +99,45 @@ body .navbar-brand {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
+  margin-top: 7em;
 }
+
 .form-signin .checkbox {
   font-weight: 400;
 }
+
 .form-signin .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
-  font-size: 16px;
+  font-size: 24px;
 }
+
 .form-signin .form-control:focus {
   z-index: 2;
 }
+
 .form-signin input {
   margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.btn-block {
-  background-color: #379683;
-  color: black;
+.question {
+  color: #09104f;
+}
+
+#sign-in {
+  background-color: #09104f;
+  color: #e05e1d;
+  border-color: none;
+  cursor: pointer;
+}
+
+#sign-in:hover {
+  background-color: #070d40;
+  color: #e04719;
+  border-color: none;
+  cursor: pointer;
 }

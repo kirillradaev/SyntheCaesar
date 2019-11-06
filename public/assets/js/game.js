@@ -12,6 +12,11 @@ let config = {
   type: Phaser.AUTO,
   width: 1024,
   height: 768,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  autoRound: false,
   backgroundColor: "black",
   physics: {
     default: "arcade",
@@ -25,3 +30,11 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
+
+// window.addEventListener(
+//   "resize",
+//   function(event) {
+//     game.scale.resize(window.innerWidth, window.innerHeight);
+//   },
+//   false
+// );

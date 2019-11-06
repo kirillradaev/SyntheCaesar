@@ -1,23 +1,48 @@
 body {
-  background-color: #5cdb95;
-  font-family: "Righteous", cursive;
+  background-color: #e05e1d;
+  font-family: "VT323", monospace;
   font-size: 36px;
-}
-
-body .navbar {
-  background-color: #05386b;
-}
-
-body .btn-success {
-  background-color: #379683;
-}
-
-body .btn-danger {
-  background-color: #379683;
 }
 
 body .navbar-brand {
   font-size: 34px;
+  color: #e05e1d;
+}
+
+.nav-link {
+  color: #e05e1d;
+}
+
+.navbar-brand:hover {
+  color: #e04719;
+}
+
+.nav-link:hover {
+  color: #e04719;
+}
+
+body .navbar-toggler {
+  background-color: white;
+}
+
+body .navbar {
+  background-color: #09104f;
+}
+
+body .btn-success {
+  background-color: #e05e1d;
+}
+
+body .btn-danger {
+  background-color: #e05e1d;
+}
+
+.btn-danger:hover {
+  background-color: #e04719;
+}
+
+.btn-success:hover {
+  background-color: #e04719;
 }
 
 canvas {
@@ -25,4 +50,26 @@ canvas {
   width: 1024px;
   height: 768px;
   margin: auto;
+}
+
+.btn-logOut {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e05e1d;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
+}
+
+.btn-logOut:hover {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e04719;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
 }

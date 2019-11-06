@@ -106,37 +106,37 @@ class PlayerLaser extends Entity {
   }
 }
 
-class GunShip extends Entity {
+class Meteoroid extends Entity {
   constructor(scene, x, y) {
-    super(scene, x, y, "sprEnemy0", "GunShip");
+    super(scene, x, y, "sprEnemy0", "Meteoroid");
     this.play("sprEnemy0");
 
     this.body.velocity.y = Phaser.Math.Between(50, 100);
 
-    this.shootTimer = this.scene.time.addEvent({
-      delay: 1000,
-      callback: function() {
-        let laser = new EnemyLaser(this.scene, this.x, this.y);
-        laser.setScale(this.scaleX);
-        this.scene.enemyLasers.add(laser);
-      },
-      callbackScope: this,
-      loop: true
-    });
+    // this.shootTimer = this.scene.time.addEvent({
+    //   delay: 1000,
+    //   callback: function() {
+    //     let laser = new EnemyLaser(this.scene, this.x, this.y);
+    //     laser.setScale(this.scaleX);
+    //     this.scene.enemyLasers.add(laser);
+    //   },
+    //   callbackScope: this,
+    //   loop: true
+    // });
   }
 
-  onDestroy() {
-    if (this.shootTimer !== undefined) {
-      if (this.shootTimer) {
-        this.shootTimer.remove(false);
-      }
-    }
-  }
+  // onDestroy() {
+  //   if (this.shootTimer !== undefined) {
+  //     if (this.shootTimer) {
+  //       this.shootTimer.remove(false);
+  //     }
+  //   }
+  // }
 }
 
-class ChaserShip extends Entity {
+class ChasingRock extends Entity {
   constructor(scene, x, y) {
-    super(scene, x, y, "sprEnemy1", "ChaserShip");
+    super(scene, x, y, "sprEnemy1", "ChasingRock");
 
     this.body.velocity.y = Phaser.Math.Between(50, 100);
 
