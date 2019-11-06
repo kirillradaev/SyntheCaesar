@@ -25,39 +25,66 @@ mongoose.connection.on("connected", function() {
 
 const app = express();
 
-const server = require("http").Server(app);
-const io = require("socket.io").listen(server);
+const server = require('http').Server(app);
+const io = require('socket.io').listen(server);
 
 const players = {};
+const rooms = {};
+const queue = [];
 
-const scores = 0;
+const findPlayer2 = function(socket) {
+    if (queue.length > 0) {
+        const p2 = queue.pop();
+        const room = socket.id + '#' + p2.id;
 
-io.on("connection", function(socket) {
-  console.log("a user connected: ", socket.id);
+        p2.join(room);
+        socket.join(room);
 
-  players[socket.id] = {
-    playerId: socket.id
-  };
+        rooms[p2.id] = room;
+        room[socket.id] = room;
 
-  socket.emit("currentPlayers", players);
-  socket.broadcast.emit("newPlayer", players[socket.id]);
-  //on update score
-  socket.emit("scoreUpdate", scores);
-  socket.broadcast.emit("newPlayer", players[socket.id]);
+        socket.emit('ready', { msg: 'Ready to Start Your Game!' });
+        p2.emit('ready', { msg: 'Ready to Start Your Game!' });
 
-  socket.on("score", function() {
-    //score logic here
+    } else {
 
-    io.emit("scoreUpdate", scores);
-  });
-  // socket.broadcast.emit('updare', {player: socket.id, score: score from messagte});
-  //forward the score to other  users
-  socket.on("disconnect", function() {
-    console.log("user disconnected: ", socket.id);
-    delete players[socket.id];
-    io.emit("disconnect", socket.id);
-  });
-});
+        queue.push(socket);
+
+        socket.emit('waiting', { msg: 'Waiting for another player' });
+    }
+}
+
+io.on('connection', function (socket) {
+
+    players[socket.id] = {
+        playerId: socket.id,
+        score: 0
+    };
+    
+    findPlayer2(socket);
+
+    socket.on('scoreUpdate', function(score) {
+        players[socket.id].score = score
+        socket.broadcast.emit('playerScore', theirScore = players[socket.id].score)
+    });
+
+    socket.on('leave room', function () {
+        const room = rooms[socket.id];
+        socket.broadcast.to(room).emit('game end');
+        const p2Id = room.split('#');
+        p2Id = p2Id[0] === socket.id ? p2Id[1] : p2Id[0];
+
+        findPlayer2(players[p2Id]);
+        findPlayer2(socket);
+    })
+
+    socket.on('disconnect', function () {
+        console.log('user disconnected: ', socket.id);
+        delete players[socket.id];
+        io.emit('disconnect', socket.id);
+    });
+
+})
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
