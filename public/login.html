@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>LOGIN PAGE</title>
+    <title>SIGN UP PAGE</title>
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
@@ -15,14 +15,13 @@
       crossorigin="anonymous"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Righteous|Staatliches|Teko&display=swap"
+      href="https://fonts.googleapis.com/css?family=VT323|Righteous&display=swap"
       rel="stylesheet"
     />
     <link href="assets/css/registration.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
-​
-  <body>
+  <body class="text-center">
     <nav class="navbar navbar-expand-md">
       <a href="index.html" class="navbar-brand">RHYTHM GAME</a>
       <button
@@ -39,22 +38,25 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <form method="GET" action="/login">
-              <button type="submit" class="btn btn-success">Login</button>
-            </form>
+          <li class="nav-item ">
+            <a href="login.html" class="nav-link">LogIn</a>
           </li>
           <li class="nav-item">
-            <form method="GET" action="/logout">
-              <button class="btn btn-danger" type="submit">
-                Logout
+            <form method="POST" action="/logout" onsubmit="signOut()">
+              <button
+                id="sign-in"
+                class="btn btn-logOut"
+                type="submit"
+                onClick="signOut()"
+              >
+                LogOut
               </button>
             </form>
           </li>
         </ul>
       </div>
     </nav>
-​
+    ​
     <section class="text-center">
       <form class="form-signin needs-validation" novalidate>
         <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
@@ -108,13 +110,28 @@
       }
     </script>
     <script>
-      let form = document.querySelector("#sing-in", function(event) {
+      let form = document.querySelector("#sign-in", function(event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
         }
         form.classList.add("was-validated");
       });
+    </script>
+    <script>
+      function signOut() {
+        $.ajax({
+          type: "POST",
+          url: "/logout",
+          success: function() {
+            window.location.replace("/index.html");
+          },
+          error: function(xhr) {
+            window.alert(JSON.stringify(xhr));
+            window.location.replace("/index.html");
+          }
+        });
+      }
     </script>
   </body>
 </html>
