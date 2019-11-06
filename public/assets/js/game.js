@@ -8,6 +8,7 @@ const bpm = 105;
 let text;
 let timedEvent;
 let gameOverText;
+let winText;
 
 let config = {
   type: Phaser.AUTO,

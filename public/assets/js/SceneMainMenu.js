@@ -39,7 +39,7 @@ class SceneMainMenu extends Phaser.Scene {
       "mainMenuBg"
     );
 
-    // this.getTitle();
+    this.getTitle();
 
     this.sfx = {
       btnOver: this.sound.add("sndBtnOver"),

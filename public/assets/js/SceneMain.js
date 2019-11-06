@@ -118,6 +118,24 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.otherScoreText;
+
+    this.gameOverText = this.add.text(400, 300, "GAME OVER", {
+      fontFamily: "Roboto Condensed",
+      fontSize: "60px",
+      fill: "#fff"
+    });
+    this.gameOverText.setOrigin(0.5);
+
+    this.gameOverText.visible = false;
+
+    this.winText = this.add.text(400, 300, "YOU WIN! KEEP GOING!", {
+      fontFamily: "Roboto Condensed",
+      fontSize: "60px",
+      fill: "#fff"
+    });
+    this.winText.setOrigin(0.5);
+
+    this.winText.visible = false;
     
     this.enemies = this.add.group();
     this.playerLasers = this.add.group();
@@ -437,42 +455,10 @@ class SceneMain extends Phaser.Scene {
 
     this.score += 10;
 
-<<<<<<< HEAD
     this.socket.on('gameOver', () => {
       this.winText.visible = true
   })
 
-    // this.moveBrick1(this.brick1, 3);
-
-    // this.time.addEvent({
-    //   delay: 1000,
-    //   callback: function() {
-    //     this.moveBrick2(this.brick2, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
-    // this.time.addEvent({
-    //   delay: 2000,
-    //   callback: function() {
-    //     this.moveBrick1(this.brick3, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
-    // this.time.addEvent({
-    //   delay: 3000,
-    //   callback: function() {
-    //     this.moveBrick2(this.brick4, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
-=======
->>>>>>> 77af6be0417527ca298a01f941e9f7ea6a358ad6
     this.background.tilePositionY -= 1.5;
   }
 
@@ -528,4 +514,21 @@ class SceneMain extends Phaser.Scene {
     const rand = Math.floor(Math.random() * strings.length);
     strings[rand].setNote();
   }
+
+  sendScore() {
+    $.ajax({
+      type: 'POST',
+      url: '/submit-score',
+      data: {
+        username: getUser(),
+        score: score
+      },
+      success: function(data) {
+      },
+      error: function(xhr) {
+        window.alert(JSON.stringify(xhr));
+        window.location.replace('/index.html');
+      }
+    });
+  };
 }
