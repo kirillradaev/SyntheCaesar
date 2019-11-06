@@ -107,11 +107,11 @@ app.get("/login", function(req, res) {
   res.redirect("/login.html");
 });
 
-app.get("/logout", (req, res) => {
-  res.clearCookie("sessionUserID");
-  res.clearCookie("Created");
-  res.redirect("/");
-});
+// app.post("/logout", (req, res) => {
+//   res.clearCookie("sessionUserID");
+//   res.clearCookie("Created");
+//   res.redirect("/");
+// });
 
 app.get("/about", (req, res) => {
   res.redirect("/about.html");
