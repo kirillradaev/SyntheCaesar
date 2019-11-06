@@ -7,6 +7,7 @@ let theirScore = 0;
 const bpm = 105;
 let text;
 let timedEvent;
+let gameOverText;
 
 let config = {
   type: Phaser.AUTO,

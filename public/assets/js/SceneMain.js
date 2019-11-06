@@ -131,6 +131,24 @@ class SceneMain extends Phaser.Scene {
 
     this.otherScoreText;
 
+    this.gameOverText = this.add.text(400, 300, "GAME OVER", {
+      fontFamily: "Roboto Condensed",
+      fontSize: "60px",
+      fill: "#fff"
+    });
+    this.gameOverText.setOrigin(0.5);
+
+    this.gameOverText.visible = false;
+
+    this.winText = this.add.text(400, 300, "YOU WIN! KEEP GOING!", {
+      fontFamily: "Roboto Condensed",
+      fontSize: "60px",
+      fill: "#fff"
+    });
+    this.winText.setOrigin(0.5);
+
+    this.winText.visible = false;
+
     //Player creation
     // this.players = this.physics.add.group();
 
@@ -440,6 +458,13 @@ class SceneMain extends Phaser.Scene {
         );
         this.player.setData("isShooting", false);
       }
+    } else {
+      this.socket.emit('playerDead');
+      if (this.winText.visible) {
+        this.winText.visible = false
+      }
+      this.gameOverText.visible = true;
+      this.sendScore();
     }
 
     for (let i = 0; i < this.enemies.getChildren().length; i++) {
@@ -488,6 +513,10 @@ class SceneMain extends Phaser.Scene {
     // this.movePlayerManager();
 
     this.score += 10;
+
+    this.socket.on('gameOver', () => {
+      this.winText.visible = true
+  })
 
     // this.moveBrick1(this.brick1, 3);
 
