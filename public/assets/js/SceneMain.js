@@ -15,17 +15,14 @@ class SceneMain extends Phaser.Scene {
     this.load.image("sprLaserPlayer", "assets/content/sprLaserPlayer.png");
     this.load.spritesheet("sprEnemy0", "assets/content/sprEnemy0.png", {
       frameWidth: 60,
-      frameHeight: 50
+      frameHeight: 80
     });
-    this.load.image("sprEnemy1", "assets/content/sprEnemy1.png");
+    this.load.spritesheet("sprEnemy1", "assets/content/sprEnemy1.png", {
+      frameWidth: 66,
+      frameHeight: 66
+    });
 
     this.load.image("sprLaserEnemy0", "assets/content/sprLaserEnemy0.png");
-    // this.load.image("brickYellow", "assets/content/brickYellow.png");
-    // this.load.image("brickGreen", "assets/content/brickGreen.png");
-    // this.load.image("brickBlue", "assets/content/brickBlue.png");
-    // this.load.image("brickPurple", "assets/content/brickPurple.png");
-    // this.load.image("platform", "assets/content/platform.png");
-    // this.load.image("player", "assets/content/player.png");
     this.load.spritesheet("sun", "assets/content/sun.png", {
       frameWidth: 136,
       frameHeight: 120
@@ -62,6 +59,13 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.anims.create({
+      key: "sprEnemy1",
+      frames: this.anims.generateFrameNumbers("sprEnemy1"),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
       key: "sprExplosion",
       frames: this.anims.generateFrameNumbers("sprExplosion"),
       frameRate: 20,
@@ -91,60 +95,29 @@ class SceneMain extends Phaser.Scene {
     };
 
     //Music creation
-    // bpm;
-
-    // this.input.touch.preventDefault = false;
 
     music = this.sound.add("gameMusic");
     music.play();
-
-    // this.input.onDown.add(startMusic, this);
-    // function startMusic() {
-    //   music.resume();
-    // }
-
-    // this.time.events.loop(Phaser.Timer.MINUTE / bpm, setRandomNote, this);
-
-    /////////////////////////////////////////////////////////
-    // this.brick1 = this.add.image(650, 0, "brickYellow");
-    // this.brick2 = this.add.image(900, 0, "brickGreen");
-    // this.brick3 = this.add.image(650, 0, "brickBlue");
-    // this.brick4 = this.add.image(900, 0, "brickPurple");
 
     //  The score
 
     this.scoreText = this.add.text(16, 16, "SCORE: " + score, {
       fontFamily: '"Roboto Condensed"',
       fontSize: "42px",
-      fill: "#DC143C"
+      fill: "#E0DA28"
     });
 
     this.scoreText;
-
-    //Player creation
-    // this.players = this.physics.add.group();
-
-    // player = this.physics.add.sprite(
-    //   config.width * 0.75,
-    //   config.height * 0.8,
-    //   "sprPlayer"
-    // );
-
-    // this.players = this.physics.add.group();
-    // this.players.add(player);
-
-    // player.setBounce(0.2);
-    // player.setCollideWorldBounds(true);
 
     this.enemies = this.add.group();
     this.playerLasers = this.add.group();
     this.enemyLasers = this.add.group();
 
     this.time.addEvent({
-      delay: 3000,
+      delay: 5000,
       callback: function() {
         let enemy = null;
-        enemy = new GunShip(
+        enemy = new Meteoroid(
           this,
           Phaser.Math.Between(700, 1000),
           0,
@@ -152,7 +125,7 @@ class SceneMain extends Phaser.Scene {
         );
 
         if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(10, 20) * 0.1);
+          enemy.setScale(Phaser.Math.Between(10, 14) * 0.1);
           this.enemies.add(enemy);
         }
       },
@@ -161,10 +134,10 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 3000,
+      delay: 10000,
       callback: function() {
         let enemy = null;
-        enemy = new ChaserShip(
+        enemy = new ChasingRock(
           this,
           Phaser.Math.Between(700, 1000),
           0,
@@ -172,7 +145,7 @@ class SceneMain extends Phaser.Scene {
         );
 
         if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(10, 20) * 0.1);
+          enemy.setScale(Phaser.Math.Between(8, 12) * 0.1);
           this.enemies.add(enemy);
         }
       },
@@ -235,7 +208,7 @@ class SceneMain extends Phaser.Scene {
         let number = Phaser.Math.Between(1, 27);
         if (number < 6) {
           for (let i = 0; i < 1; i++) {
-            let x = 100;
+            let x = 102;
             let y = 0;
 
             let note = this.notes.create(x, y, "note");
@@ -255,7 +228,7 @@ class SceneMain extends Phaser.Scene {
           }
         } else if (number > 10 && number < 16) {
           for (let i = 0; i < 1; i++) {
-            let x = 350;
+            let x = 348;
             let y = 0;
 
             let note = this.notes.create(x, y, "note3");
@@ -265,10 +238,10 @@ class SceneMain extends Phaser.Scene {
           }
         } else if (number > 15 && number < 19) {
           for (let i = 0; i < 1; i++) {
-            let x = 100;
+            let x = 102;
             let y = 0;
 
-            let x2 = 350;
+            let x2 = 348;
             let y2 = 0;
 
             let note = this.notes.create(x, y, "note");
@@ -280,7 +253,7 @@ class SceneMain extends Phaser.Scene {
           }
         } else if (number > 18 && number < 22) {
           for (let i = 0; i < 1; i++) {
-            let x = 100;
+            let x = 102;
             let y = 0;
 
             let x2 = 225;
@@ -298,7 +271,7 @@ class SceneMain extends Phaser.Scene {
             let x = 225;
             let y = 0;
 
-            let x2 = 350;
+            let x2 = 348;
             let y2 = 0;
 
             let note = this.notes.create(x, y, "note2");
@@ -310,13 +283,13 @@ class SceneMain extends Phaser.Scene {
           }
         } else if (number > 25) {
           for (let i = 0; i < 1; i++) {
-            let x = 100;
+            let x = 102;
             let y = 0;
 
             let x2 = 225;
             let y2 = 0;
 
-            let x3 = 350;
+            let x3 = 348;
             let y3 = 0;
 
             let note = this.notes.create(x, y, "note");
@@ -334,22 +307,9 @@ class SceneMain extends Phaser.Scene {
       loop: -1
     });
 
-    // let platform = this.physics.add.image(
-    //   this.game.config.width * 0.75,
-    //   this.game.config.height * 0.95,
-    //   "platform"
-    // );
-
-    // this.objects.add(platform);
-    // this.objects.add(note);
-    // this.objects.add(note2);
-    // this.objects.add(note3);
     this.objects.add(circle);
     this.objects.add(circle2);
     this.objects.add(circle3);
-
-    // sun.body.immovable = true;
-    // sun.body.allowGravity = false;
 
     circle.body.immovable = true;
     circle.body.allowGravity = false;
@@ -360,12 +320,6 @@ class SceneMain extends Phaser.Scene {
     circle3.body.immovable = true;
     circle3.body.allowGravity = false;
 
-    // platform.body.immovable = true;
-    // platform.body.allowGravity = false;
-
-    // this.time.events.loop(Phaser.Timer.MINUTE / bpm, setRandomNote, this);
-
-    // this.physics.add.collider(platform, player);
     this.physics.add.overlap(circle, this.notes, this.collectNote1, null, this);
     this.physics.add.overlap(
       circle2,
@@ -382,11 +336,6 @@ class SceneMain extends Phaser.Scene {
       this
     );
 
-    // if (this.enemy !== null) {
-    //   this.enemy.setScale(Phaser.Math.Between(10, 20) * 0.1);
-    //   this.enemies.add(this.enemy);
-    // }
-
     this.physics.add.collider(this.playerLasers, this.enemies, function(
       playerLaser,
       enemy
@@ -399,6 +348,17 @@ class SceneMain extends Phaser.Scene {
         playerLaser.destroy();
       }
     });
+
+    // this.physics.add.overlap(this.player, this.enemies, function(
+    //   player,
+    //   enemy
+    // ) {
+    //   if (!player.getData("isDead") && !enemy.getData("isDead")) {
+    //     player.explode(false);
+    //     player.onDestroy();
+    //     enemy.explode(true);
+    //   }
+    // });
   }
 
   update() {
@@ -456,64 +416,12 @@ class SceneMain extends Phaser.Scene {
       }
     }
 
-    // this.music.play();
-
-    // this.moveNote(this.note, 300);
-    // this.moveNote2(this.note2, 300);
-    // this.moveNote3(this.note3, 300);
-
     this.startMusic();
-
-    // this.movePlayerManager();
 
     this.score += 10;
 
-    // this.moveBrick1(this.brick1, 3);
-
-    // this.time.addEvent({
-    //   delay: 1000,
-    //   callback: function() {
-    //     this.moveBrick2(this.brick2, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
-    // this.time.addEvent({
-    //   delay: 2000,
-    //   callback: function() {
-    //     this.moveBrick1(this.brick3, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
-    // this.time.addEvent({
-    //   delay: 3000,
-    //   callback: function() {
-    //     this.moveBrick2(this.brick4, 3);
-    //   },
-    //   callbackScope: this,
-    //   loop: false
-    // });
-
     this.background.tilePositionY -= 1.5;
   }
-
-  //Sets brick's speed
-  // moveBrick1(brick, speed) {
-  //   brick.y += speed;
-  //   if (brick.y > config.height) {
-  //     this.resetBrickPosition1(brick);
-  //   }
-  // }
-
-  // moveBrick2(brick, speed) {
-  //   brick.y += speed;
-  //   if (brick.y > config.height) {
-  //     this.resetBrickPosition2(brick);
-  //   }
-  // }
 
   //Resets brick's position after it reaches the end of a screen
   resetBrickPosition1(brick) {
@@ -530,42 +438,6 @@ class SceneMain extends Phaser.Scene {
   startMusic() {
     music.resume();
   }
-
-  // moveNote(note, speed) {
-  //   note.setVelocityY(speed);
-  //   if (note.y > config.height) {
-  //     this.resetNotePosition(note);
-  //   }
-  // }
-
-  // resetNotePosition(note) {
-  //   note.y = 0;
-  //   note.x = 100;
-  // }
-
-  // moveNote2(note, speed) {
-  //   note.setVelocityY(speed);
-  //   if (note.y > config.height) {
-  //     this.resetNotePosition2(note);
-  //   }
-  // }
-
-  // resetNotePosition2(note) {
-  //   note.y = 0;
-  //   note.x = 225;
-  // }
-
-  // moveNote3(note, speed) {
-  //   note.setVelocityY(speed);
-  //   if (note.y > config.height) {
-  //     this.resetNotePosition3(note);
-  //   }
-  // }
-
-  // resetNotePosition3(note) {
-  //   note.y = 0;
-  //   note.x = 350;
-  // }
 
   collectNote1(circle, note) {
     if (this.keyA.isDown) {
@@ -598,8 +470,4 @@ class SceneMain extends Phaser.Scene {
     const rand = Math.floor(Math.random() * strings.length);
     strings[rand].setNote();
   }
-
-  // destroyEnemy(enemy) {
-  //   enemy.destroy();
-  // }
 }

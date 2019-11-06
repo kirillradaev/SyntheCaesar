@@ -1,35 +1,107 @@
 body {
-  background-color: #5cdb95;
-  font-family: "Righteous", cursive;
+  background-color: #e05e1d;
+  font-family: "VT323", monospace;
   font-size: 36px;
 }
 
+body .navbar-brand {
+  font-size: 34px;
+  color: #e05e1d;
+}
+
+.nav-link {
+  color: #e05e1d;
+}
+
+.navbar-brand:hover {
+  color: #e04719;
+}
+
+.nav-link:hover {
+  color: #e04719;
+}
+
+body .navbar-toggler {
+  background-color: white;
+}
+
 body .navbar {
-  background-color: #05386b;
+  background-color: #09104f;
 }
 
 body .btn-success {
-  background-color: #379683;
+  background-color: #e05e1d;
 }
 
 body .btn-danger {
-  background-color: #379683;
+  background-color: #e05e1d;
+}
+
+.btn-danger:hover {
+  background-color: #e04719;
+}
+
+.btn-success:hover {
+  background-color: #e04719;
 }
 
 body .my-container {
-  border: 1px solid blue;
   margin-left: 0px;
   margin-right: 0px;
 }
 
 body .my-row {
-  border: 3px solid red;
   height: 410px;
   width: 100vw;
 }
 
-body .my-col {
-  border: 3px dotted yellow;
+body .menu {
+  padding: 0;
+}
+
+body .howToPlay {
+  background-color: #09104f;
+  color: #e05e1d;
+  cursor: pointer;
+  font-size: 120px;
+  border: 0;
+}
+
+.howToPlay:hover {
+  background: #070d40;
+  color: #e04719;
+  cursor: pointer;
+  border: 0;
+}
+
+body .leaderboard {
+  background: #09104f;
+  color: #e05e1d;
+  cursor: pointer;
+  font-size: 120px;
+  border: 0;
+}
+
+.leaderboard:hover {
+  background: #070d40;
+  color: #e04719;
+  cursor: pointer;
+  border: 0;
+}
+
+body .play {
+  background: #09104f;
+  color: #e05e1d;
+  cursor: pointer;
+  font-size: 120px;
+  border: 0;
+}
+
+.play:hover {
+  background: #070d40;
+  color: #e04719;
+  cursor: pointer;
+  border: 0;
 }
 
 body .navbar-brand {
@@ -47,4 +119,31 @@ div .no-padding {
 
 button .full-width {
   width: 100%;
+}
+
+div .text-justify-center {
+  margin: auto;
+  width: 80%;
+}
+
+.btn-logOut {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e05e1d;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
+}
+
+.btn-logOut:hover {
+  background-color: none;
+  border: 0;
+  margin: 0;
+  color: #e04719;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 36px;
 }

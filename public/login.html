@@ -15,7 +15,7 @@
       crossorigin="anonymous"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Righteous|Staatliches|Teko&display=swap"
+      href="https://fonts.googleapis.com/css?family=VT323|Righteous&display=swap"
       rel="stylesheet"
     />
     <link href="assets/css/registration.css" rel="stylesheet" />
@@ -39,15 +39,18 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <form method="GET" action="/login">
-              <button type="submit" class="btn btn-success">Login</button>
-            </form>
+          <li class="nav-item ">
+            <a href="login.html" class="nav-link">LogIn</a>
           </li>
           <li class="nav-item">
-            <form method="GET" action="/logout">
-              <button class="btn btn-danger" type="submit">
-                Logout
+            <form method="POST" action="/logout" onsubmit="signOut()">
+              <button
+                id="sign-in"
+                class="btn btn-logOut"
+                type="submit"
+                onClick="signOut()"
+              >
+                LogOut
               </button>
             </form>
           </li>
@@ -77,13 +80,12 @@
           required
         />
         <div class="invalid-feedback">Please enter a valid username</div>
-        <a
-          id="sign-in"
-          class="btn btn-lg btn-primary btn-block"
-          onClick="signIn()"
+        <a id="sign-in" class="btn btn-lg  btn-block" onClick="signIn()"
           >Sign in</a
         >
-        <a href="/signup.html">Don't have an account? Sign up here.</a>
+        <a href="/signup.html" class="question"
+          >Don't have an account? Sign up here.</a
+        >
       </form>
     </section>
     <script>
