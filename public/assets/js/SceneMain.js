@@ -44,6 +44,8 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndExplode0", "assets/content/sndExplode0.wav");
     this.load.audio("sndExplode1", "assets/content/sndExplode1.wav");
     this.load.audio("sndLaser", "assets/content/sndLaser.wav");
+
+    this.load.bitmapFont('arcade', 'assets/content/arcade.png', 'assets/content/arcade.xml');
   }
 
   create() {
@@ -116,21 +118,13 @@ class SceneMain extends Phaser.Scene {
 
     name = getUser()
 
-    this.scoreText = this.add.text(16, 16, name.toUpperCase() + "'S SCORE: " + score, {
-      fontFamily: '"Roboto Condensed"',
-      fontSize: "42px",
-      fill: "#E0DA28"
-    });
+    this.scoreText = this.add.bitmapText(16, 16, 'arcade', name.toUpperCase() + "'S SCORE: " + score).setTint(0xffffff);
 
     this.scoreText;
 
-    this.otherScoreText = this.add.text(16, 45, " THEIR SCORE: " + theirScore, {
-      fontFamily: '"Roboto Condensed"',
-      fontSize: "42px",
-      fill: "#DC143C"
-    });
+    this.otherScoreText = this.add.bitmapText(16, 50, 'arcade', "THEIR SCORE: " + theirScore).setTint(0xffffff);
 
-    this.otherScoreText;
+    this.otherScoreText.visible = false;
 
     this.gameOverText = this.add.text(400, 300, "GAME OVER", {
       fontFamily: "Roboto Condensed",
@@ -544,6 +538,7 @@ class SceneMain extends Phaser.Scene {
     this.socket.emit("scoreUpdate", (score += 10), name);
     this.scoreText.setText(name.toUpperCase() + "'S SCORE: " + score);
     this.socket.on("playerScore", (theirScore, player2) => {
+      this.otherScoreText.visible = true
       this.otherScoreText.setText(player2.toUpperCase() + "'S SCORE: " + theirScore);
     });
   }
