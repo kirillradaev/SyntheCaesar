@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>SIGN IN PAGE</title>
+    <title>SIGN UP PAGE</title>
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
@@ -95,21 +95,6 @@
           error: function(xhr) {
             window.alert(JSON.stringify(xhr));
             window.location.replace("/signup.html");
-          }
-        });
-      }
-    </script>
-    <script>
-      function signOut() {
-        $.ajax({
-          type: "POST",
-          url: "/logout",
-          success: function() {
-            window.location.replace("/index.html");
-          },
-          error: function(xhr) {
-            window.alert(JSON.stringify(xhr));
-            window.location.replace("/index.html");
           }
         });
       }

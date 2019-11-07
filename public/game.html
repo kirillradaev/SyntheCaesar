@@ -64,20 +64,5 @@
         </ul>
       </div>
     </nav>
-    <script>
-      function signOut() {
-        $.ajax({
-          type: "POST",
-          url: "/logout",
-          success: function() {
-            window.location.replace("/index.html");
-          },
-          error: function(xhr) {
-            window.alert(JSON.stringify(xhr));
-            window.location.replace("/index.html");
-          }
-        });
-      }
-    </script>
   </body>
 </html>
