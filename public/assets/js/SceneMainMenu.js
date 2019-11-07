@@ -108,7 +108,9 @@ class SceneMainMenu extends Phaser.Scene {
       });
       this.title.setOrigin(0.5);
 
-      timedEvent = this.time.delayedCall(6000, this.nextScene, [], this);
+      this.btnPlay.visible = false
+
+      timedEvent = this.time.delayedCall(5000, this.nextScene, [], this);
     });
   }
 
