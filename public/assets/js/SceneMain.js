@@ -114,7 +114,9 @@ class SceneMain extends Phaser.Scene {
 
     //  The score
 
-    this.scoreText = this.add.text(16, 16, "SCORE: " + score, {
+    name = getUser()
+
+    this.scoreText = this.add.text(16, 16, name.toUpperCase() + "'S SCORE: " + score, {
       fontFamily: '"Roboto Condensed"',
       fontSize: "42px",
       fill: "#E0DA28"
@@ -133,16 +135,18 @@ class SceneMain extends Phaser.Scene {
     this.gameOverText = this.add.text(400, 300, "GAME OVER", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
-      fill: "#fff"
+      fill: "#fff",
+      align: "center"
     });
     this.gameOverText.setOrigin(0.5);
 
     this.gameOverText.visible = false;
 
-    this.winText = this.add.text(400, 300, "YOU WIN! KEEP GOING!", {
+    this.winText = this.add.text(600, 300, "YOU WIN! KEEP GOING!", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
-      fill: "#fff"
+      fill: "#fff",
+      align: "center"
     });
     this.winText.setOrigin(0.5);
 
@@ -419,7 +423,7 @@ class SceneMain extends Phaser.Scene {
         this.player.setData("isShooting", false);
       }
     } else {
-      this.socket.emit("playerDead");
+      this.socket.emit("playerDead", name);
       if (this.winText.visible) {
         this.winText.visible = false;
       }
@@ -466,7 +470,12 @@ class SceneMain extends Phaser.Scene {
 
     this.score += 10;
 
-    this.socket.on("gameOver", () => {
+    if (this.winText.visible) {
+      timedEvent = this.time.delayedCall(5000, this.toggleWinText, [], this);
+    }
+
+    this.socket.on("gameOver", name => {
+      this.winText.setText(name.toUpperCase() + " Died.\nYOU WIN!\n KEEP GOING!")
       this.winText.visible = true;
     });
 
@@ -532,10 +541,10 @@ class SceneMain extends Phaser.Scene {
   }
 
   updateScore() {
-    this.socket.emit("scoreUpdate", (score += 10));
-    this.scoreText.setText("Score: " + score);
-    this.socket.on("playerScore", theirScore => {
-      this.otherScoreText.setText("Their Score: " + theirScore);
+    this.socket.emit("scoreUpdate", (score += 10), name);
+    this.scoreText.setText(name.toUpperCase() + "'S SCORE: " + score);
+    this.socket.on("playerScore", (theirScore, player2) => {
+      this.otherScoreText.setText(player2.toUpperCase() + "'S SCORE: " + theirScore);
     });
   }
 
@@ -558,5 +567,9 @@ class SceneMain extends Phaser.Scene {
         window.location.replace("/index.html");
       }
     });
+  }
+
+  toggleWinText() {
+    this.winText.visible = false
   }
 }

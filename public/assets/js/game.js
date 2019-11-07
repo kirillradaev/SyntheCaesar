@@ -1,5 +1,7 @@
 let gameSettings = { playerSpeed: 250 };
 let player;
+let player2;
+let name;
 let music;
 let intro;
 let score = 0;

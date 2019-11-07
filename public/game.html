@@ -21,6 +21,7 @@
   </head>
   <body>
     <div>
+      <script src="assets/js/jwt-decode.min.js"></script>
       <script src="/socket.io/socket.io.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="assets/js/Entities.js"></script>
@@ -47,7 +48,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item ">
-            <a href="login.html" class="nav-link">LogIn</a>
+            <a href="login.html" id="loginLink" class="nav-link">LogIn</a>
           </li>
           <li class="nav-item">
             <form method="POST" action="/logout" onsubmit="signOut()">

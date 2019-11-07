@@ -7,6 +7,7 @@ const secureRoutes = require("./routes/secure.js");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const jwt = require('jsonwebtoken');
 
 const uri = process.env.MONGO_CONNECTION_URL;
 
@@ -58,14 +59,21 @@ io.on('connection', function (socket) {
 
     players[socket.id] = {
         playerId: socket.id,
+        username: "",
         score: 0
     };
-    
+
     findPlayer2(socket);
 
-    socket.on('scoreUpdate', function(score) {
+    socket.on('scoreUpdate', (score, name) => {
         players[socket.id].score = score
-        socket.broadcast.emit('playerScore', theirScore = players[socket.id].score)
+        players[socket.id].username = name
+
+        socket.broadcast.emit('playerScore', theirScore = players[socket.id].score, player2 = players[socket.id].username)
+    });
+
+    socket.on('playerDead', name => {
+      socket.broadcast.emit('gameOver', name)
     });
 
     socket.on('leave room', function () {
