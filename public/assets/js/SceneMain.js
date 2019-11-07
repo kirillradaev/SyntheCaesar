@@ -9,8 +9,8 @@ class SceneMain extends Phaser.Scene {
 
   preload() {
     this.load.spritesheet("sprExplosion", "assets/content/sprExplosion.png", {
-      frameWidth: 32,
-      frameHeight: 32
+      frameWidth: 56,
+      frameHeight: 56
     });
     this.load.spritesheet("circlePress", "assets/content/circlePress.png", {
       frameWidth: 108,
@@ -32,8 +32,8 @@ class SceneMain extends Phaser.Scene {
 
     this.load.image("sprLaserEnemy0", "assets/content/sprLaserEnemy0.png");
     this.load.spritesheet("sun", "assets/content/sun.png", {
-      frameWidth: 136,
-      frameHeight: 120
+      frameWidth: 176,
+      frameHeight: 224
     });
     this.load.image("note", "assets/content/note.png");
     this.load.image("note2", "assets/content/note2.png");
@@ -153,7 +153,7 @@ class SceneMain extends Phaser.Scene {
     this.enemyLasers = this.add.group();
 
     this.time.addEvent({
-      delay: 5000,
+      delay: 3000,
       callback: function() {
         let enemy = null;
         enemy = new Meteoroid(
@@ -173,7 +173,7 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 10000,
+      delay: 4000,
       callback: function() {
         let enemy = null;
         enemy = new ChasingRock(
@@ -201,8 +201,8 @@ class SceneMain extends Phaser.Scene {
 
     this.sun = new Sun(
       this,
-      this.game.config.width * 0.9,
-      this.game.config.height * 0.1,
+      this.game.config.width * 0.87,
+      this.game.config.height * 0.17,
       "sun"
     );
 
