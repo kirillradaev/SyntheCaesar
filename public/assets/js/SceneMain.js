@@ -128,9 +128,10 @@ class SceneMain extends Phaser.Scene {
       fill: "#DC143C"
     });
 
-    this.otherScoreText;
+    this.otherScoreText.visible = false;
 
-    this.gameOverText = this.add.text(400, 300, "GAME OVER", {
+    this.gameOverText = this.add.text(this.game.config.width * 0.5,
+      this.game.config.height * 0.5, "GAME OVER", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
       fill: "#fff"
@@ -139,7 +140,8 @@ class SceneMain extends Phaser.Scene {
 
     this.gameOverText.visible = false;
 
-    this.winText = this.add.text(400, 300, "YOU WIN! KEEP GOING!", {
+    this.winText = this.add.text(this.game.config.width * 0.5,
+      this.game.config.height * 0.5, "YOU WIN! KEEP GOING!", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
       fill: "#fff"
@@ -535,6 +537,7 @@ class SceneMain extends Phaser.Scene {
     this.socket.emit("scoreUpdate", (score += 10));
     this.scoreText.setText("Score: " + score);
     this.socket.on("playerScore", theirScore => {
+      this.otherScoreText.visible = true
       this.otherScoreText.setText("Their Score: " + theirScore);
     });
   }
