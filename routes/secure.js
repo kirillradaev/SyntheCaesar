@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/submit-score', asyncMiddleware( async (req, res, next) => {
     const { username, score } = req.body;
-    await UserModel.updateOne({ username }, { $max: { highScore: score }});
+    await UserModel.updateOne({ username }, { highScore: score });
     res.status(200).json({ 'status': 'ok' });
 }));
 

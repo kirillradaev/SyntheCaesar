@@ -30,6 +30,45 @@ class Highscore extends Phaser.Scene {
       "mainMenuBg"
     );
 
+    this.btnRestart = this.add.sprite(
+      this.game.config.width * 0.5,
+      this.game.config.height * 0.5,
+      "sprBtnRestart"
+    );
+
+    this.btnRestart.setInteractive();
+
+    this.btnRestart.on(
+      "pointerover",
+      function() {
+        this.btnRestart.setTexture("sprBtnRestartHover"); // set the button texture to sprBtnPlayHover
+        this.sfx.btnOver.play(); // play the button over sound
+      },
+      this
+    );
+
+    this.btnRestart.on("pointerout", function() {
+      this.setTexture("sprBtnRestart");
+    });
+
+    this.btnRestart.on(
+      "pointerdown",
+      function() {
+        this.btnRestart.setTexture("sprBtnRestartDown");
+        this.sfx.btnDown.play();
+      },
+      this
+    );
+
+    this.btnRestart.on(
+      "pointerup",
+      function() {
+        this.btnRestart.setTexture("sprBtnRestart");
+        this.scene.start("SceneMain");
+      },
+      this
+    );
+
     this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
  
     for (let i = 1; i < 6; i++) {
@@ -44,23 +83,11 @@ class Highscore extends Phaser.Scene {
  
 let config = {
   type: Phaser.AUTO,
-  width: 1024,
-  height: 768,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  },
-  autoRound: false,
-  backgroundColor: "black",
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { x: 0, y: 0 }
-    }
-  },
-  scene: [Highscore],
+  parent: 'phaser-example',
+  width: 800,
+  height: 600,
   pixelArt: true,
-  roundPixels: true
+  scene: [Highscore]
 };
  
 $.ajax({
