@@ -56,6 +56,7 @@
         </ul>
       </div>
     </nav>
+
     <form class="form-signin">
       <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
       <label for="username" class="sr-only">username</label>
@@ -81,8 +82,8 @@
     <script>
       function signUp() {
         var data = {
-          username: document.forms[0].elements[1].value,
-          password: document.forms[0].elements[2].value
+          username: $("#username").val(),
+          password: $("#password").val()
         };
         $.ajax({
           type: "POST",

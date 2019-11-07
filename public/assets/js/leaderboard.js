@@ -12,10 +12,19 @@ class Highscore extends Phaser.Scene {
   }
  
   preload() {
+    this.load.image("mainMenuBg", "assets/content/mainMenuBg.png");
     this.load.bitmapFont('arcade', 'assets/content/arcade.png', 'assets/content/arcade.xml');
   }
  
   create() {
+    this.background = this.add.tileSprite(
+      512,
+      384,
+      config.width,
+      config.height,
+      "mainMenuBg"
+    );
+
     this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
  
     for (let i = 1; i < 6; i++) {
@@ -30,11 +39,23 @@ class Highscore extends Phaser.Scene {
  
 let config = {
   type: Phaser.AUTO,
-  parent: 'phaser-example',
-  width: 800,
-  height: 600,
+  width: 1024,
+  height: 768,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  autoRound: false,
+  backgroundColor: "black",
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { x: 0, y: 0 }
+    }
+  },
+  scene: [Highscore],
   pixelArt: true,
-  scene: [Highscore]
+  roundPixels: true
 };
  
 $.ajax({
