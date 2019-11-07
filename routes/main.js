@@ -32,7 +32,6 @@ router.post('/login', async (req, res, next) => {
 
                 res.cookie('jwt', token);
                 res.cookie('refreshJwt', refreshToken);
-                res.cookie('username', body.username)
 
                 tokenList[refreshToken] = {
                     token,
