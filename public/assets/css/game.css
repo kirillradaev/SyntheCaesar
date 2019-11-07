@@ -1,24 +1,24 @@
 body {
-  background-color: #e05e1d;
+  background-color: #45a29e;
   font-family: "VT323", monospace;
   font-size: 36px;
 }
 
 body .navbar-brand {
   font-size: 34px;
-  color: #e05e1d;
+  color: #45a29e;
 }
 
 .nav-link {
-  color: #e05e1d;
+  color: #45a29e;
 }
 
 .navbar-brand:hover {
-  color: #e04719;
+  color: #66fcf1;
 }
 
 .nav-link:hover {
-  color: #e04719;
+  color: #66fcf1;
 }
 
 body .navbar-toggler {
@@ -26,23 +26,23 @@ body .navbar-toggler {
 }
 
 body .navbar {
-  background-color: #09104f;
+  background-color: #0b0c10;
 }
 
 body .btn-success {
-  background-color: #e05e1d;
+  background-color: #45a29e;
 }
 
 body .btn-danger {
-  background-color: #e05e1d;
+  background-color: #45a29e;
 }
 
 .btn-danger:hover {
-  background-color: #e04719;
+  background-color: #66fcf1;
 }
 
 .btn-success:hover {
-  background-color: #e04719;
+  background-color: #66fcf1;
 }
 
 canvas {
@@ -56,7 +56,7 @@ canvas {
   background-color: none;
   border: 0;
   margin: 0;
-  color: #e05e1d;
+  color: #45a29e;
   padding: 0.5rem 1rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -67,7 +67,7 @@ canvas {
   background-color: none;
   border: 0;
   margin: 0;
-  color: #e04719;
+  color: #66fcf1;
   padding: 0.5rem 1rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;

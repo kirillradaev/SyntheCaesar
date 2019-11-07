@@ -12,6 +12,10 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     });
+    this.load.spritesheet("circlePress", "assets/content/circlePress.png", {
+      frameWidth: 108,
+      frameHeight: 91
+    });
     this.load.spritesheet("sprPlayer", "assets/content/sprPlayer.png", {
       frameWidth: 84,
       frameHeight: 77
@@ -75,6 +79,13 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.anims.create({
+      key: "circlePress",
+      frames: this.anims.generateFrameNumbers("circlePress"),
+      frameRate: 20,
+      repeat: 0
+    });
+
+    this.anims.create({
       key: "sprPlayer",
       frames: this.anims.generateFrameNumbers("sprPlayer"),
       frameRate: 20,
@@ -110,7 +121,7 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.scoreText;
-    
+
     this.otherScoreText = this.add.text(16, 45, " THEIR SCORE: " + theirScore, {
       fontFamily: '"Roboto Condensed"',
       fontSize: "42px",
@@ -136,7 +147,7 @@ class SceneMain extends Phaser.Scene {
     this.winText.setOrigin(0.5);
 
     this.winText.visible = false;
-    
+
     this.enemies = this.add.group();
     this.playerLasers = this.add.group();
     this.enemyLasers = this.add.group();
@@ -376,7 +387,7 @@ class SceneMain extends Phaser.Scene {
         playerLaser.destroy();
       }
     });
-    
+
     this.physics.add.overlap(this.player, this.enemies, function(
       player,
       enemy
@@ -408,9 +419,9 @@ class SceneMain extends Phaser.Scene {
         this.player.setData("isShooting", false);
       }
     } else {
-      this.socket.emit('playerDead');
+      this.socket.emit("playerDead");
       if (this.winText.visible) {
-        this.winText.visible = false
+        this.winText.visible = false;
       }
       this.gameOverText.visible = true;
       this.sendScore();
@@ -455,9 +466,9 @@ class SceneMain extends Phaser.Scene {
 
     this.score += 10;
 
-    this.socket.on('gameOver', () => {
-      this.winText.visible = true
-  })
+    this.socket.on("gameOver", () => {
+      this.winText.visible = true;
+    });
 
     this.background.tilePositionY -= 1.5;
   }
@@ -480,24 +491,42 @@ class SceneMain extends Phaser.Scene {
 
   collectNote1(circle, note) {
     if (this.keyA.isDown) {
-      note.disableBody(true, true);
+      let explosion = this.objects.create(circle.x, circle.y, "circlePress");
+      note.destroy();
+      explosion.anims.play("circlePress");
+      explosion.on("animationcomplete", () => {
+        explosion.destroy();
+      });
 
+      //note.disableBody(true, true);
       this.updateScore();
     }
   }
 
   collectNote2(circle, note) {
     if (this.keyS.isDown) {
-      note.disableBody(true, true);
+      let explosion = this.objects.create(circle.x, circle.y, "circlePress");
+      note.destroy();
+      explosion.anims.play("circlePress");
+      explosion.on("animationcomplete", () => {
+        explosion.destroy();
+      });
 
+      //note.disableBody(true, true);
       this.updateScore();
     }
   }
 
   collectNote3(circle, note) {
     if (this.keyD.isDown) {
-      note.disableBody(true, true);
+      let explosion = this.objects.create(circle.x, circle.y, "circlePress");
+      note.destroy();
+      explosion.anims.play("circlePress");
+      explosion.on("animationcomplete", () => {
+        explosion.destroy();
+      });
 
+      //note.disableBody(true, true);
       this.updateScore();
     }
   }
@@ -517,18 +546,17 @@ class SceneMain extends Phaser.Scene {
 
   sendScore() {
     $.ajax({
-      type: 'POST',
-      url: '/submit-score',
+      type: "POST",
+      url: "/submit-score",
       data: {
         username: getUser(),
         score: score
       },
-      success: function(data) {
-      },
+      success: function(data) {},
       error: function(xhr) {
         window.alert(JSON.stringify(xhr));
-        window.location.replace('/index.html');
+        window.location.replace("/index.html");
       }
     });
-  };
+  }
 }
