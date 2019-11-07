@@ -68,7 +68,7 @@ class Player extends Entity {
   }
 
   onDestroy() {
-    music.stop()
+    music.stop();
     this.scene.time.addEvent({
       // go to game over scene
       delay: 1000,
@@ -113,26 +113,7 @@ class Meteoroid extends Entity {
     this.play("sprEnemy0");
 
     this.body.velocity.y = Phaser.Math.Between(50, 100);
-
-    // this.shootTimer = this.scene.time.addEvent({
-    //   delay: 1000,
-    //   callback: function() {
-    //     let laser = new EnemyLaser(this.scene, this.x, this.y);
-    //     laser.setScale(this.scaleX);
-    //     this.scene.enemyLasers.add(laser);
-    //   },
-    //   callbackScope: this,
-    //   loop: true
-    // });
   }
-
-  // onDestroy() {
-  //   if (this.shootTimer !== undefined) {
-  //     if (this.shootTimer) {
-  //       this.shootTimer.remove(false);
-  //     }
-  //   }
-  // }
 }
 
 class ChasingRock extends Entity {
