@@ -1,3 +1,5 @@
+// import { NONAME } from "dns";
+
 class SceneMain extends Phaser.Scene {
   constructor() {
     super({ key: "SceneMain" });
@@ -150,44 +152,60 @@ class SceneMain extends Phaser.Scene {
     this.playerLasers = this.add.group();
     this.enemyLasers = this.add.group();
 
+    //Spawns meteoroid
     this.time.addEvent({
-      delay: 3000,
+      delay: 1000,
       callback: function() {
-        let enemy = null;
-        enemy = new Meteoroid(
-          this,
-          Phaser.Math.Between(700, 1000),
-          0,
-          "sprEnemy0"
-        );
+        this.time.addEvent({
+          delay: 3000,
+          callback: function() {
+            let enemy = null;
+            enemy = new Meteoroid(
+              this,
+              Phaser.Math.Between(700, 1000),
+              0,
+              "sprEnemy0"
+            );
 
-        if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(10, 14) * 0.1);
-          this.enemies.add(enemy);
-        }
+            if (enemy !== null) {
+              enemy.setScale(Phaser.Math.Between(10, 14) * 0.1);
+              this.enemies.add(enemy);
+            }
+          },
+          callbackScope: this,
+          loop: true
+        });
       },
       callbackScope: this,
-      loop: true
+      loop: null
     });
 
+    //Spawns rock chaser
     this.time.addEvent({
-      delay: 4000,
+      delay: 1000,
       callback: function() {
-        let enemy = null;
-        enemy = new ChasingRock(
-          this,
-          Phaser.Math.Between(700, 1000),
-          0,
-          "sprEnemy1"
-        );
+        this.time.addEvent({
+          delay: 4000,
+          callback: function() {
+            let enemy = null;
+            enemy = new ChasingRock(
+              this,
+              Phaser.Math.Between(700, 1000),
+              0,
+              "sprEnemy1"
+            );
 
-        if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(8, 12) * 0.1);
-          this.enemies.add(enemy);
-        }
+            if (enemy !== null) {
+              enemy.setScale(Phaser.Math.Between(8, 12) * 0.1);
+              this.enemies.add(enemy);
+            }
+          },
+          callbackScope: this,
+          loop: true
+        });
       },
       callbackScope: this,
-      loop: true
+      loop: null
     });
 
     this.player = new Player(
@@ -210,10 +228,6 @@ class SceneMain extends Phaser.Scene {
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
-
-    //Platform creation
-
-    // this.physics.world.setBoundsCollision();
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
 
@@ -239,109 +253,117 @@ class SceneMain extends Phaser.Scene {
 
     this.notes = this.physics.add.group();
 
+    //Note generator
     this.time.addEvent({
-      delay: 450,
+      delay: 4100,
       callback: function() {
-        let number = Phaser.Math.Between(1, 27);
-        if (number < 6) {
-          for (let i = 0; i < 1; i++) {
-            let x = 102;
-            let y = 0;
+        this.time.addEvent({
+          delay: 450,
+          callback: function() {
+            let number = Phaser.Math.Between(1, 27);
+            if (number < 6) {
+              for (let i = 0; i < 1; i++) {
+                let x = 102;
+                let y = 0;
 
-            let note = this.notes.create(x, y, "note");
-            note.setVelocityY(600);
+                let note = this.notes.create(x, y, "note");
+                note.setVelocityY(600);
 
-            note;
-          }
-        } else if (number > 5 && number < 11) {
-          for (let i = 0; i < 1; i++) {
-            let x = 225;
-            let y = 0;
+                note;
+              }
+            } else if (number > 5 && number < 11) {
+              for (let i = 0; i < 1; i++) {
+                let x = 225;
+                let y = 0;
 
-            let note = this.notes.create(x, y, "note2");
-            note.setVelocityY(600);
+                let note = this.notes.create(x, y, "note2");
+                note.setVelocityY(600);
 
-            note;
-          }
-        } else if (number > 10 && number < 16) {
-          for (let i = 0; i < 1; i++) {
-            let x = 348;
-            let y = 0;
+                note;
+              }
+            } else if (number > 10 && number < 16) {
+              for (let i = 0; i < 1; i++) {
+                let x = 348;
+                let y = 0;
 
-            let note = this.notes.create(x, y, "note3");
-            note.setVelocityY(600);
+                let note = this.notes.create(x, y, "note3");
+                note.setVelocityY(600);
 
-            note;
-          }
-        } else if (number > 15 && number < 19) {
-          for (let i = 0; i < 1; i++) {
-            let x = 102;
-            let y = 0;
+                note;
+              }
+            } else if (number > 15 && number < 19) {
+              for (let i = 0; i < 1; i++) {
+                let x = 102;
+                let y = 0;
 
-            let x2 = 348;
-            let y2 = 0;
+                let x2 = 348;
+                let y2 = 0;
 
-            let note = this.notes.create(x, y, "note");
-            let note2 = this.notes.create(x2, y2, "note3");
-            note.setVelocityY(600);
-            note2.setVelocityY(600);
+                let note = this.notes.create(x, y, "note");
+                let note2 = this.notes.create(x2, y2, "note3");
+                note.setVelocityY(600);
+                note2.setVelocityY(600);
 
-            [note, note2];
-          }
-        } else if (number > 18 && number < 22) {
-          for (let i = 0; i < 1; i++) {
-            let x = 102;
-            let y = 0;
+                [note, note2];
+              }
+            } else if (number > 18 && number < 22) {
+              for (let i = 0; i < 1; i++) {
+                let x = 102;
+                let y = 0;
 
-            let x2 = 225;
-            let y2 = 0;
+                let x2 = 225;
+                let y2 = 0;
 
-            let note = this.notes.create(x, y, "note");
-            let note2 = this.notes.create(x2, y2, "note2");
-            note.setVelocityY(600);
-            note2.setVelocityY(600);
+                let note = this.notes.create(x, y, "note");
+                let note2 = this.notes.create(x2, y2, "note2");
+                note.setVelocityY(600);
+                note2.setVelocityY(600);
 
-            [note, note2];
-          }
-        } else if (number > 21 && number < 25) {
-          for (let i = 0; i < 1; i++) {
-            let x = 225;
-            let y = 0;
+                [note, note2];
+              }
+            } else if (number > 21 && number < 25) {
+              for (let i = 0; i < 1; i++) {
+                let x = 225;
+                let y = 0;
 
-            let x2 = 348;
-            let y2 = 0;
+                let x2 = 348;
+                let y2 = 0;
 
-            let note = this.notes.create(x, y, "note2");
-            let note2 = this.notes.create(x2, y2, "note3");
-            note.setVelocityY(600);
-            note2.setVelocityY(600);
+                let note = this.notes.create(x, y, "note2");
+                let note2 = this.notes.create(x2, y2, "note3");
+                note.setVelocityY(600);
+                note2.setVelocityY(600);
 
-            [note, note2];
-          }
-        } else if (number > 25) {
-          for (let i = 0; i < 1; i++) {
-            let x = 102;
-            let y = 0;
+                [note, note2];
+              }
+            } else if (number > 25) {
+              for (let i = 0; i < 1; i++) {
+                let x = 102;
+                let y = 0;
 
-            let x2 = 225;
-            let y2 = 0;
+                let x2 = 225;
+                let y2 = 0;
 
-            let x3 = 348;
-            let y3 = 0;
+                let x3 = 348;
+                let y3 = 0;
 
-            let note = this.notes.create(x, y, "note");
-            let note2 = this.notes.create(x2, y2, "note2");
-            let note3 = this.notes.create(x3, y3, "note3");
-            note.setVelocityY(600);
-            note2.setVelocityY(600);
-            note3.setVelocityY(600);
+                let note = this.notes.create(x, y, "note");
+                let note2 = this.notes.create(x2, y2, "note2");
+                let note3 = this.notes.create(x3, y3, "note3");
+                note.setVelocityY(600);
+                note2.setVelocityY(600);
+                note3.setVelocityY(600);
 
-            [note, note2, note3];
-          }
-        }
+                [note, note2, note3];
+              }
+            }
+          },
+          callbackScope: this,
+          loop: -1
+        });
       },
       callbackScope: this,
-      loop: -1
+      loop: null
     });
 
     this.objects.add(circle);
