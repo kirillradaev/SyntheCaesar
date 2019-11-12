@@ -141,3 +141,17 @@ body .navbar-brand {
 h1 {
   color: #0b0c10;
 }
+
+#sign-up {
+  background-color: #0b0c10;
+  color: #45a29e;
+  border-color: #45a29e;
+  cursor: pointer;
+}
+
+#sign-up:hover {
+  background-color: #0b0c10;
+  color: #66fcf1;
+  border-color: #66fcf1;
+  cursor: pointer;
+}

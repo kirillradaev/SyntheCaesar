@@ -47,7 +47,11 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndExplode1", "assets/content/sndExplode1.wav");
     this.load.audio("sndLaser", "assets/content/sndLaser.wav");
 
-    this.load.bitmapFont('arcade', 'assets/content/arcade.png', 'assets/content/arcade.xml');
+    this.load.bitmapFont(
+      "arcade",
+      "assets/content/arcade.png",
+      "assets/content/arcade.xml"
+    );
   }
 
   create() {
@@ -118,17 +122,21 @@ class SceneMain extends Phaser.Scene {
 
     //  The score
 
-    name = getUser()
+    name = getUser();
 
-    this.scoreText = this.add.bitmapText(16, 16, 'arcade', name.toUpperCase() + "'S SCORE: " + score).setTint(0xffffff);
+    this.scoreText = this.add
+      .bitmapText(16, 16, "arcade", name.toUpperCase() + "'S SCORE: " + score)
+      .setTint(0xffffff);
 
     this.scoreText;
 
-    this.otherScoreText = this.add.bitmapText(16, 50, 'arcade', "THEIR SCORE: " + theirScore).setTint(0xffffff);
+    this.otherScoreText = this.add
+      .bitmapText(16, 50, "arcade", "THEIR SCORE: " + theirScore)
+      .setTint(0xffffff);
 
     this.otherScoreText.visible = false;
 
-    this.gameOverText = this.add.text(400, 300, "GAME OVER", {
+    this.gameOverText = this.add.text(512, 384, "GAME OVER", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
       fill: "#fff",
@@ -138,7 +146,7 @@ class SceneMain extends Phaser.Scene {
 
     this.gameOverText.visible = false;
 
-    this.winText = this.add.text(600, 300, "YOU WIN! KEEP GOING!", {
+    this.winText = this.add.text(512, 350, "YOU WIN! KEEP GOING!", {
       fontFamily: "Roboto Condensed",
       fontSize: "60px",
       fill: "#fff",
@@ -154,7 +162,7 @@ class SceneMain extends Phaser.Scene {
 
     //Spawns meteoroid
     this.time.addEvent({
-      delay: 1000,
+      delay: 1300,
       callback: function() {
         this.time.addEvent({
           delay: 3000,
@@ -182,7 +190,7 @@ class SceneMain extends Phaser.Scene {
 
     //Spawns rock chaser
     this.time.addEvent({
-      delay: 1000,
+      delay: 1300,
       callback: function() {
         this.time.addEvent({
           delay: 4000,
@@ -255,7 +263,7 @@ class SceneMain extends Phaser.Scene {
 
     //Note generator
     this.time.addEvent({
-      delay: 4100,
+      delay: 4200,
       callback: function() {
         this.time.addEvent({
           delay: 450,
@@ -491,7 +499,9 @@ class SceneMain extends Phaser.Scene {
     }
 
     this.socket.on("gameOver", name => {
-      this.winText.setText(name.toUpperCase() + " Died.\nYOU WIN!\n KEEP GOING!")
+      this.winText.setText(
+        name.toUpperCase() + " Died.\nYOU WIN!\n KEEP GOING!"
+      );
       this.winText.visible = true;
     });
 
@@ -560,8 +570,10 @@ class SceneMain extends Phaser.Scene {
     this.socket.emit("scoreUpdate", (score += 10), name);
     this.scoreText.setText(name.toUpperCase() + "'S SCORE: " + score);
     this.socket.on("playerScore", (theirScore, player2) => {
-      this.otherScoreText.visible = true
-      this.otherScoreText.setText(player2.toUpperCase() + "'S SCORE: " + theirScore);
+      this.otherScoreText.visible = true;
+      this.otherScoreText.setText(
+        player2.toUpperCase() + "'S SCORE: " + theirScore
+      );
     });
   }
 
@@ -587,6 +599,6 @@ class SceneMain extends Phaser.Scene {
   }
 
   toggleWinText() {
-    this.winText.visible = false
+    this.winText.visible = false;
   }
 }
