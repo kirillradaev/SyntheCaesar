@@ -6,23 +6,23 @@ SyntheCaeser is a web game built with Node, Express, Phaser 3, MongoDB. The game
 
 ###### Main menu
 
-!["Main menu"](https://github.com/kirillradaev/tweeter/blob/master/docs/Main-page.png)
+!["Main menu"](https://github.com/kirillradaev/SyntheCaesar/blob/master/docs/mainMenu.png?raw=true)
 
 ###### How to play
 
-!["How to play"](https://github.com/kirillradaev/tweeter/blob/master/docs/field-for-new-tweets.png)
+!["How to play"](https://github.com/kirillradaev/SyntheCaesar/blob/master/docs/howToPlay.png?raw=true)
 
 ###### Leaderboard
 
-!["Leaderboard"](https://github.com/kirillradaev/tweeter/blob/master/docs/tweet-before-posting.png)
+!["Leaderboard"](https://github.com/kirillradaev/SyntheCaesar/blob/master/docs/leaderboard.png?raw=true)
 
 ###### Game
 
-!["Game"](https://github.com/kirillradaev/tweeter/blob/master/docs/tweet-after-posting.png)
+!["Game"](https://github.com/kirillradaev/SyntheCaesar/blob/master/docs/game.png?raw=true)
 
 ###### Restart screen
 
-!["Restart"](https://github.com/kirillradaev/tweeter/blob/master/docs/error-message.png)
+!["Restart"](https://github.com/kirillradaev/SyntheCaesar/blob/master/docs/restart.png?raw=true)
 
 ## Getting Started
 
