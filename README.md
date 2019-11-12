@@ -35,6 +35,16 @@ SyntheCaeser is a web game built with Node, Express, Phaser 3, MongoDB. The game
 
 - Express
 - Node 5.10.x or above
-- Chance
-- Body-parser
-- md5
+- bcrypt
+- body-parser
+- bootstrap
+- cookie-parser
+- dotenv
+- jquery
+- jsonwebtoken
+- mongoose
+- passport
+- passport-jwt
+- passport-local
+- popper.js
+- socket.io
