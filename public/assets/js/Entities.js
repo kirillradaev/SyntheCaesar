@@ -69,6 +69,7 @@ class Player extends Entity {
 
   onDestroy() {
     music.stop();
+    // this.scene.pause("SceneMain");
     this.scene.time.addEvent({
       // go to game over scene
       delay: 1000,

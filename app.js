@@ -7,7 +7,7 @@ const secureRoutes = require("./routes/secure.js");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const uri = process.env.MONGO_CONNECTION_URL;
 
@@ -26,73 +26,74 @@ mongoose.connection.on("connected", function() {
 
 const app = express();
 
-const server = require('http').Server(app);
-const io = require('socket.io').listen(server);
+const server = require("http").Server(app);
+const io = require("socket.io").listen(server);
 
 const players = {};
 const rooms = {};
 const queue = [];
 
 const findPlayer2 = function(socket) {
-    if (queue.length > 0) {
-        const p2 = queue.pop();
-        const room = socket.id + '#' + p2.id;
+  if (queue.length > 0) {
+    const p2 = queue.pop();
+    const room = socket.id + "#" + p2.id;
 
-        p2.join(room);
-        socket.join(room);
+    p2.join(room);
+    socket.join(room);
 
-        rooms[p2.id] = room;
-        room[socket.id] = room;
+    rooms[p2.id] = room;
+    room[socket.id] = room;
 
-        socket.emit('ready', { msg: 'Ready to Start Your Game!' });
-        p2.emit('ready', { msg: 'Ready to Start Your Game!' });
+    socket.emit("ready", { msg: "Ready to Start Your Game!" });
+    p2.emit("ready", { msg: "Ready to Start Your Game!" });
+  } else {
+    queue.push(socket);
 
-    } else {
+    socket.emit("waiting", { msg: "Waiting for another player" });
+  }
+};
 
-        queue.push(socket);
+io.on("connection", function(socket) {
+  players[socket.id] = {
+    playerId: socket.id,
+    username: "",
+    score: 0
+  };
 
-        socket.emit('waiting', { msg: 'Waiting for another player' });
-    }
-}
+  findPlayer2(socket);
 
-io.on('connection', function (socket) {
+  socket.on("scoreUpdate", (score, name) => {
+    players[socket.id].score = score;
+    players[socket.id].username = name;
 
-    players[socket.id] = {
-        playerId: socket.id,
-        username: "",
-        score: 0
-    };
+    socket.broadcast.emit(
+      "playerScore",
+      (theirScore = players[socket.id].score),
+      (player2 = players[socket.id].username)
+    );
+  });
 
+  socket.on("playerDead", name => {
+    socket.broadcast.emit("gameOver", name);
+    io.emit("disconnect", socket.id);
+  });
+
+  socket.on("leave room", function() {
+    const room = rooms[socket.id];
+    socket.broadcast.to(room).emit("game end");
+    const p2Id = room.split("#");
+    p2Id = p2Id[0] === socket.id ? p2Id[1] : p2Id[0];
+
+    findPlayer2(players[p2Id]);
     findPlayer2(socket);
+  });
 
-    socket.on('scoreUpdate', (score, name) => {
-        players[socket.id].score = score
-        players[socket.id].username = name
-
-        socket.broadcast.emit('playerScore', theirScore = players[socket.id].score, player2 = players[socket.id].username)
-    });
-
-    socket.on('playerDead', name => {
-      socket.broadcast.emit('gameOver', name)
-    });
-
-    socket.on('leave room', function () {
-        const room = rooms[socket.id];
-        socket.broadcast.to(room).emit('game end');
-        const p2Id = room.split('#');
-        p2Id = p2Id[0] === socket.id ? p2Id[1] : p2Id[0];
-
-        findPlayer2(players[p2Id]);
-        findPlayer2(socket);
-    })
-
-    socket.on('disconnect', function () {
-        console.log('user disconnected: ', socket.id);
-        delete players[socket.id];
-        io.emit('disconnect', socket.id);
-    });
-
-})
+  socket.on("disconnect", function() {
+    console.log("user disconnected: ", socket.id);
+    delete players[socket.id];
+    io.emit("disconnect", socket.id);
+  });
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

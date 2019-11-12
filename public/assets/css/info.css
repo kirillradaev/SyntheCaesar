@@ -155,3 +155,13 @@ h1,
 p {
   color: #0b0c10;
 }
+
+.how-to-video {
+  margin: auto;
+  padding-bottom: 2em;
+  padding-top: 1em;
+}
+
+.how-to-play {
+  padding-top: 1em;
+}
